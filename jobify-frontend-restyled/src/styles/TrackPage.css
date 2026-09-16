@@ -1,0 +1,212 @@
+.tracks-status {
+  text-align: center;
+  margin-top: 100px;
+  font-family: inherit;
+  color: var(--text-secondary);
+}
+.tracks-status-error {
+  color: var(--danger);
+}
+
+.tracks-page-header h1 {
+  background: linear-gradient(135deg, #fff, var(--text-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ===== Layout: sidebar + content ===== */
+.tracks-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 22px;
+  align-items: flex-start;
+}
+
+/* ---- Sidebar ---- */
+.tracks-sidebar {
+  padding: 10px;
+  position: sticky;
+  top: 90px;
+}
+
+.tracks-sidebar-head {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 10px 12px 6px;
+}
+
+.track-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.track-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.track-nav-item:hover {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+}
+
+.track-nav-item.active {
+  background: linear-gradient(
+    135deg,
+    rgba(47, 134, 201, 0.18),
+    rgba(232, 66, 92, 0.14)
+  );
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.track-nav-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.track-nav-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.track-nav-name {
+  font-weight: 700;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track-nav-count {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.track-nav-item.active .track-nav-count {
+  color: var(--brand-amber);
+}
+
+/* ---- Content ---- */
+.tracks-content-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.tracks-content-head h2 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.track-description {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  max-width: 480px;
+}
+
+.course-search {
+  min-width: 260px;
+}
+
+.tracks-empty-hint {
+  color: var(--text-muted);
+  padding: 30px 0;
+}
+
+/* ---- Courses grid (cards) ---- */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.course-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px;
+  cursor: pointer;
+  text-align: left;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.course-card-icon {
+  font-size: 26px;
+}
+
+.course-card-title {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.course-card-cta {
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-blue);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .tracks-layout {
+    grid-template-columns: 1fr;
+  }
+  .tracks-sidebar {
+    position: static;
+  }
+  .track-nav-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .track-nav-item {
+    flex-direction: column;
+    min-width: 130px;
+    text-align: center;
+    gap: 6px;
+  }
+  .track-nav-text {
+    align-items: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+  .course-search {
+    min-width: 100%;
+  }
+  .tracks-content-head {
+    flex-direction: column;
+  }
+}

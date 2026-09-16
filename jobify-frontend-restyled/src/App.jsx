@@ -55,9 +55,11 @@ function App() {
       path: '/',
       element: <ProtectedRoute />,
       errorElement: (
-        <div style={{ padding: '20px', textAlign: 'center' }}>
+        <div className='error-container'>
           <h2>🚨 Something went wrong!</h2>
-          <a href='/login'>Return to Login</a>
+          <a href='/login' className='error-btn'>
+            Return to Login
+          </a>
         </div>
       ),
       children: [

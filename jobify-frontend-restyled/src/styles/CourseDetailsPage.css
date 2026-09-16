@@ -1,0 +1,180 @@
+.course-details-container .header-nav {
+  margin-bottom: 18px;
+}
+
+.course-title {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 26px;
+}
+
+.sessions-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.session-search {
+  min-width: 280px;
+}
+
+.no-sessions-text {
+  color: var(--text-muted);
+  padding: 20px 0;
+}
+
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.session-card {
+  padding: 22px;
+}
+
+.session-card-title {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--brand-blue);
+}
+
+.session-notes {
+  margin: 0 0 16px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.checkpoints-section {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.checkpoints-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.checkpoints-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.checkpoint-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-raised);
+  cursor: pointer;
+  font-size: 13.5px;
+  transition: background var(--transition);
+}
+
+.checkpoint-label:hover {
+  background: var(--bg-surface-hover);
+}
+
+.checkpoint-label.completed {
+  background: rgba(47, 158, 110, 0.12);
+}
+
+.checkbox-input {
+  accent-color: var(--brand-emerald);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.checkpoint-text {
+  color: var(--text-primary);
+}
+
+.checkpoint-text.completed {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.files-section {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.files-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.files-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-raised);
+  flex-wrap: wrap;
+}
+
+.file-name {
+  font-size: 13.5px;
+  color: var(--text-primary);
+}
+
+.open-file-btn {
+  padding: 6px 14px;
+  font-size: 12.5px;
+}
+
+/* ---- Status boxes (loading / error) ---- */
+.status-box {
+  text-align: center;
+  margin-top: 100px;
+  color: var(--text-secondary);
+}
+
+.status-box-error {
+  color: var(--danger);
+}
+
+.status-box .btn {
+  margin-top: 16px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 560px) {
+  .session-search {
+    min-width: 100%;
+  }
+  .checkpoints-grid {
+    grid-template-columns: 1fr;
+  }
+}

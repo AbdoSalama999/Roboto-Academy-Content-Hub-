@@ -1,0 +1,131 @@
+.daily-report-shell {
+  max-width: 900px;
+}
+
+.daily-report-card {
+  padding: 32px;
+}
+
+.daily-report-title {
+  margin: 0 0 24px;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.report-basics-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.report-basics-row .field {
+  flex: 1;
+}
+
+.session-block {
+  padding: 20px;
+  margin-bottom: 20px;
+  background: var(--bg-surface-raised);
+}
+
+.session-block-title {
+  margin: 0 0 14px;
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+.session-basics-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.session-basics-row .input {
+  flex: 1;
+}
+
+.student-eval-title {
+  margin: 10px 0 12px;
+  color: var(--text-secondary);
+  font-size: 13.5px;
+}
+
+.student-eval-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.student-name-input {
+  flex: 2;
+}
+
+.rating-input {
+  width: 58px;
+  padding: 9px 6px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.add-student-btn {
+  margin-top: 10px;
+  padding: 7px 16px;
+  font-size: 13px;
+}
+
+.add-session-btn {
+  margin-bottom: 24px;
+}
+
+.tasks-title {
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.task-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.task-checkbox-label input {
+  accent-color: var(--brand-blue);
+  width: 16px;
+  height: 16px;
+}
+
+.submit-report-btn {
+  padding: 13px 32px;
+  font-size: 15px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 680px) {
+  .daily-report-card {
+    padding: 22px 18px;
+  }
+  .report-basics-row,
+  .session-basics-row {
+    flex-direction: column;
+  }
+  .student-eval-row {
+    flex-wrap: wrap;
+  }
+  .student-name-input {
+    flex: 1 0 100%;
+  }
+  .rating-input {
+    flex: 1 1 60px;
+  }
+}

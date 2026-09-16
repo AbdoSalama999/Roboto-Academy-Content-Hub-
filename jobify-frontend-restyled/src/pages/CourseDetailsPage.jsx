@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import '../styles/CourseDetailsPage.css'
@@ -8,6 +8,7 @@ function CourseDetailsPage() {
   const navigate = useNavigate()
   const [course, setCourse] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [sessionSearch, setSessionSearch] = useState('')
 
   // 🟢 جلب الـ API Base URL من ملف الـ .env (مع تحديد localhost كبديل للتطوير المحلي)
   const API_BASE_URL =
@@ -84,6 +85,17 @@ function CourseDetailsPage() {
     }
   }
 
+  const filteredSessions = useMemo(() => {
+    const sessions = course?.sessions || []
+    if (!sessionSearch.trim()) return sessions
+    const q = sessionSearch.trim().toLowerCase()
+    return sessions.filter(
+      (s) =>
+        s.title?.toLowerCase().includes(q) ||
+        s.notes?.toLowerCase().includes(q),
+    )
+  }, [course, sessionSearch])
+
   if (loading) {
     return (
       <div className='status-box'>
@@ -96,7 +108,7 @@ function CourseDetailsPage() {
     return (
       <div className='status-box status-box-error'>
         <h3>Course not found! ❌</h3>
-        <button className='back-btn' onClick={() => navigate('/')}>
+        <button className='btn btn-ghost' onClick={() => navigate('/')}>
           ← Back to Tracks
         </button>
       </div>
@@ -104,25 +116,48 @@ function CourseDetailsPage() {
   }
 
   return (
-    <div className='course-details-container'>
+    <div className='page-shell course-details-container'>
       {/* Top Header Nav */}
       <div className='header-nav'>
-        <button className='back-btn' onClick={() => navigate(-1)}>
+        <button className='btn btn-ghost' onClick={() => navigate(-1)}>
           ← Back
         </button>
       </div>
 
       <h1 className='course-title'>{course.title}</h1>
 
-      <div style={{ marginTop: '30px' }}>
-        <h2 className='section-title'>📚 Sessions & Syllabus</h2>
+      <div className='sessions-block'>
+        <div className='sessions-head'>
+          <h2 className='section-title'>📚 Sessions & Syllabus</h2>
 
-        {course.sessions && course.sessions.length > 0 ? (
+          {course.sessions && course.sessions.length > 0 && (
+            <div className='search-box session-search'>
+              <span className='search-icon'>🔍</span>
+              <input
+                type='text'
+                className='input'
+                placeholder='Search sessions by title or notes...'
+                value={sessionSearch}
+                onChange={(e) => setSessionSearch(e.target.value)}
+              />
+            </div>
+          )}
+        </div>
+
+        {!course.sessions || course.sessions.length === 0 ? (
+          <p className='no-sessions-text'>
+            No sessions added to this course yet.
+          </p>
+        ) : filteredSessions.length === 0 ? (
+          <p className='no-sessions-text'>
+            No sessions match “{sessionSearch}”.
+          </p>
+        ) : (
           <div className='sessions-list'>
-            {course.sessions.map((session, sIdx) => (
+            {filteredSessions.map((session, sIdx) => (
               <div
                 key={session._id || `session-${sIdx}`}
-                className='session-card'
+                className='session-card card'
               >
                 <h3 className='session-card-title'>{session.title}</h3>
 
@@ -195,7 +230,7 @@ function CourseDetailsPage() {
                               href={file.url}
                               target='_blank'
                               rel='noopener noreferrer'
-                              className='btn open-file-btn'
+                              className='btn btn-primary open-file-btn'
                             >
                               View Material
                             </a>
@@ -208,10 +243,6 @@ function CourseDetailsPage() {
               </div>
             ))}
           </div>
-        ) : (
-          <p className='no-sessions-text'>
-            No sessions added to this course yet.
-          </p>
         )}
       </div>
     </div>

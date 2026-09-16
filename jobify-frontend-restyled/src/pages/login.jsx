@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
+import '../styles/Login.css'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -54,97 +55,48 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={styles.container}>
-      <form onSubmit={handleSubmit} style={styles.card}>
-        <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>
-          Account Login
-        </h2>
+    <div className='login-container'>
+      <form onSubmit={handleSubmit} className='login-card card'>
+        <div className='login-brand'>
+          <div className='logo-badge'>R</div>
+          <h2>Welcome Back</h2>
+          <p>Sign in to Roboto Academy</p>
+        </div>
 
-        {errorMessage && <div style={styles.errorBox}>{errorMessage}</div>}
+        {errorMessage && <div className='banner banner-error'>{errorMessage}</div>}
 
-        <div style={styles.inputGroup}>
-          <label style={{ fontWeight: '500', fontSize: '14px' }}>
-            Email Address
-          </label>
+        <div className='field'>
+          <label>Email Address</label>
           <input
             type='email'
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder='name@academy.com'
-            style={styles.input}
+            className='input'
           />
         </div>
 
-        <div style={styles.inputGroup}>
-          <label style={{ fontWeight: '500', fontSize: '14px' }}>
-            Password
-          </label>
+        <div className='field'>
+          <label>Password</label>
           <input
             type='password'
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder='••••••••'
-            style={styles.input}
+            className='input'
           />
         </div>
 
-        <button type='submit' disabled={loading} style={styles.button}>
+        <button
+          type='submit'
+          disabled={loading}
+          className='btn btn-primary login-btn'
+        >
           {loading ? 'Authenticating...' : 'Sign In'}
         </button>
       </form>
     </div>
   )
-}
-
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '80vh',
-  },
-  card: {
-    width: '360px',
-    padding: '32px 24px',
-    borderRadius: '10px',
-    boxShadow:
-      '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-    border: '1px solid #e2e8f0',
-    backgroundColor: '#ffffff',
-    textAlign: 'left',
-  },
-  inputGroup: { marginBottom: '16px' },
-  input: {
-    width: '100%',
-    padding: '10px 12px',
-    marginTop: '6px',
-    boxSizing: 'border-box',
-    borderRadius: '6px',
-    border: '1px solid #cbd5e1',
-    fontSize: '14px',
-    outline: 'none',
-  },
-  button: {
-    width: '100%',
-    padding: '12px',
-    backgroundColor: '#0f172a',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-    fontSize: '15px',
-    marginTop: '8px',
-  },
-  errorBox: {
-    backgroundColor: '#fee2e2',
-    color: '#991b1b',
-    padding: '10px 12px',
-    borderRadius: '6px',
-    marginBottom: '16px',
-    fontSize: '14px',
-    border: '1px solid #f87171',
-  },
 }

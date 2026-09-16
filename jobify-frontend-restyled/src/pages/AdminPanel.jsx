@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import '../styles/CourseDetailsPage.css'
+import '../styles/AdminPanel.css'
 
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || 'http://localhost:5555/api'
@@ -216,44 +216,25 @@ function AdminPanel() {
   }
 
   return (
-    <div
-      style={{
-        maxWidth: '900px',
-        margin: '40px auto',
-        padding: '20px',
-        fontFamily: 'Arial, sans-serif',
-      }}
-    >
-      <h1>⚙️ Instructor & Admin Management Panel</h1>
+    <div className='page-shell admin-panel'>
+      <header className='page-header'>
+        <span className='eyebrow'>⚙️ Admin Only</span>
+        <h1>Management Panel</h1>
+        <p>Manage tracks, courses, sessions and instructor reports.</p>
+      </header>
 
       {/* 📌 أزرار التنقل بين التبويبات (Tabs) */}
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '25px' }}>
+      <div className='admin-tabs'>
         <button
           onClick={() => setActiveTab('courses')}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: activeTab === 'courses' ? '#2980b9' : '#ecf0f1',
-            color: activeTab === 'courses' ? '#fff' : '#333',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-          }}
+          className={`admin-tab-btn ${activeTab === 'courses' ? 'active' : ''}`}
         >
           📚 Courses & Sessions
         </button>
 
         <button
           onClick={() => setActiveTab('reports')}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: activeTab === 'reports' ? '#2980b9' : '#ecf0f1',
-            color: activeTab === 'reports' ? '#fff' : '#333',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-          }}
+          className={`admin-tab-btn ${activeTab === 'reports' ? 'active' : ''}`}
         >
           📊 Instructors Daily Reports
         </button>
@@ -261,13 +242,9 @@ function AdminPanel() {
 
       {message && (
         <div
-          style={{
-            padding: '10px',
-            borderRadius: '5px',
-            marginBottom: '20px',
-            backgroundColor: message.type === 'success' ? '#d4edda' : '#f8d7da',
-            color: message.type === 'success' ? '#155724' : '#721c24',
-          }}
+          className={`banner ${
+            message.type === 'success' ? 'banner-success' : 'banner-error'
+          }`}
         >
           {message.text}
         </div>
@@ -275,25 +252,18 @@ function AdminPanel() {
 
       {/* ==================== TAB 1: COURSES & SESSIONS ==================== */}
       {activeTab === 'courses' && (
-        <div>
+        <div className='grid grid-2 admin-forms-grid'>
           {/* إضافة كورس */}
-          <section
-            style={{
-              border: '1px solid #ddd',
-              padding: '20px',
-              borderRadius: '8px',
-              marginBottom: '30px',
-            }}
-          >
+          <section className='card admin-section'>
             <h2>➕ Add New Course</h2>
             <form onSubmit={handleCreateCourse}>
-              <div style={{ marginBottom: '15px' }}>
-                <label>Select Track:</label>
+              <div className='field'>
+                <label>Select Track</label>
                 <select
                   value={selectedTrackId}
                   onChange={(e) => setSelectedTrackId(e.target.value)}
                   required
-                  style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+                  className='input'
                 >
                   <option value=''>-- Choose Track --</option>
                   {tracks.map((t) => (
@@ -304,51 +274,35 @@ function AdminPanel() {
                 </select>
               </div>
 
-              <div style={{ marginBottom: '15px' }}>
-                <label>Course Title:</label>
+              <div className='field'>
+                <label>Course Title</label>
                 <input
                   type='text'
                   value={courseTitle}
                   onChange={(e) => setCourseTitle(e.target.value)}
                   placeholder='e.g. Full-Stack Web Development'
                   required
-                  style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+                  className='input'
                 />
               </div>
 
-              <button
-                type='submit'
-                style={{
-                  padding: '10px 20px',
-                  backgroundColor: '#27ae60',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                }}
-              >
+              <button type='submit' className='btn btn-emerald'>
                 Create Course
               </button>
             </form>
           </section>
 
           {/* إضافة سيشن */}
-          <section
-            style={{
-              border: '1px solid #ddd',
-              padding: '20px',
-              borderRadius: '8px',
-            }}
-          >
+          <section className='card admin-section'>
             <h2>📝 Add New Session & Material</h2>
             <form onSubmit={handleAddSession}>
-              <div style={{ marginBottom: '15px' }}>
-                <label>Course Title:</label>
+              <div className='field'>
+                <label>Course Title</label>
                 <select
                   value={selectedCourseTitle}
                   onChange={(e) => setSelectedCourseTitle(e.target.value)}
                   required
-                  style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+                  className='input'
                 >
                   <option value=''>-- Select Course --</option>
                   {courses.map((course) => (
@@ -359,43 +313,34 @@ function AdminPanel() {
                 </select>
               </div>
 
-              <div style={{ marginBottom: '15px' }}>
-                <label>Session Title:</label>
+              <div className='field'>
+                <label>Session Title</label>
                 <input
                   type='text'
                   value={sessionTitle}
                   onChange={(e) => setSessionTitle(e.target.value)}
                   placeholder='e.g. Session 1: React Fundamentals'
                   required
-                  style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+                  className='input'
                 />
               </div>
 
-              <div style={{ marginBottom: '15px' }}>
-                <label>Session Notes:</label>
+              <div className='field'>
+                <label>Session Notes</label>
                 <textarea
                   value={sessionNotes}
                   onChange={(e) => setSessionNotes(e.target.value)}
                   placeholder='Write session summary...'
                   rows='3'
-                  style={{ width: '100%', padding: '8px', marginTop: '5px' }}
+                  className='input'
                 />
               </div>
 
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ fontWeight: 'bold' }}>
-                  📌 Session Checkpoints:
-                </label>
-                <div style={{ marginTop: '8px' }}>
+              <div className='field'>
+                <label>📌 Session Checkpoints</label>
+                <div className='checkpoint-inputs'>
                   {checkpoints.map((cp, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        display: 'flex',
-                        gap: '10px',
-                        marginBottom: '8px',
-                      }}
-                    >
+                    <div key={idx} className='checkpoint-input-row'>
                       <input
                         type='text'
                         value={cp.text}
@@ -403,20 +348,13 @@ function AdminPanel() {
                           handleCheckpointChange(idx, e.target.value)
                         }
                         placeholder={`Topic #${idx + 1}`}
-                        style={{ flex: 1, padding: '8px' }}
+                        className='input'
                       />
                       {checkpoints.length > 1 && (
                         <button
                           type='button'
                           onClick={() => handleRemoveCheckpoint(idx)}
-                          style={{
-                            backgroundColor: '#e74c3c',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '4px',
-                            padding: '0 12px',
-                            cursor: 'pointer',
-                          }}
+                          className='btn btn-danger-ghost checkpoint-remove-btn'
                         >
                           ✕
                         </button>
@@ -426,46 +364,28 @@ function AdminPanel() {
                   <button
                     type='button'
                     onClick={handleAddCheckpoint}
-                    style={{
-                      backgroundColor: '#2ec4b6',
-                      color: '#fff',
-                      border: 'none',
-                      padding: '6px 14px',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                      fontSize: '13px',
-                      fontWeight: 'bold',
-                    }}
+                    className='btn btn-ghost add-checkpoint-btn'
                   >
                     + Add Checkpoint Topic
                   </button>
                 </div>
               </div>
 
-              <div style={{ marginBottom: '20px' }}>
-                <label style={{ fontWeight: 'bold' }}>
-                  📄 Upload Session PDF File:
-                </label>
+              <div className='field'>
+                <label>📄 Upload Session PDF File</label>
                 <input
                   id='pdfInput'
                   type='file'
                   accept='application/pdf'
                   onChange={(e) => setPdfFile(e.target.files[0])}
-                  style={{ display: 'block', marginTop: '8px' }}
+                  className='file-input'
                 />
               </div>
 
               <button
                 type='submit'
                 disabled={isUploading}
-                style={{
-                  padding: '10px 20px',
-                  backgroundColor: isUploading ? '#95a5a6' : '#2980b9',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: isUploading ? 'not-allowed' : 'pointer',
-                }}
+                className='btn btn-primary'
               >
                 {isUploading ? 'Uploading PDF to Cloud...' : 'Add Session'}
               </button>
@@ -477,95 +397,52 @@ function AdminPanel() {
       {/* ==================== TAB 2: INSTRUCTORS REPORTS ==================== */}
       {activeTab === 'reports' && (
         <div>
-          <section
-            style={{
-              border: '1px solid #ddd',
-              padding: '20px',
-              borderRadius: '8px',
-              background: '#fafafa',
-            }}
-          >
+          <section className='card admin-section'>
             <h2>📋 Daily Instructor Reports Summary</h2>
 
             {/* فلتر التاريخ */}
-            <div style={{ margin: '15px 0' }}>
-              <label style={{ fontWeight: 'bold' }}>Select Date: </label>
+            <div className='field date-filter-field'>
+              <label>Select Date</label>
               <input
                 type='date'
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
-                style={{
-                  padding: '6px 12px',
-                  borderRadius: '4px',
-                  border: '1px solid #ccc',
-                  marginLeft: '10px',
-                }}
+                className='input date-filter-input'
               />
             </div>
 
             {loadingReports ? (
-              <p>Loading reports...</p>
+              <p className='muted-text'>Loading reports...</p>
             ) : reports.length === 0 ? (
-              <p style={{ color: '#7f8c8d' }}>
-                No reports submitted on this date.
-              </p>
+              <p className='muted-text'>No reports submitted on this date.</p>
             ) : (
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '15px',
-                }}
-              >
+              <div className='reports-summary-list'>
                 {reports.map((rep) => (
-                  <div
-                    key={rep._id}
-                    style={{
-                      background: '#fff',
-                      padding: '15px',
-                      borderRadius: '8px',
-                      border: '1px solid #e2e8f0',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <h3 style={{ margin: 0, color: '#2c3e50' }}>
-                        👨‍🏫 Instructor: {rep.instructorName}
-                      </h3>
+                  <div key={rep._id} className='card report-summary-card'>
+                    <div className='report-summary-head'>
+                      <h3>👨‍🏫 Instructor: {rep.instructorName}</h3>
                       {rep.instructorId && (
                         <button
                           onClick={() => fetchInstructorStats(rep.instructorId)}
-                          style={{
-                            padding: '6px 12px',
-                            backgroundColor: '#8e44ad',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            fontSize: '12px',
-                          }}
+                          className='btn btn-coral view-stats-btn'
                         >
                           📈 View Instructor Overall Stats
                         </button>
                       )}
                     </div>
 
-                    <p style={{ margin: '8px 0', fontSize: '14px' }}>
+                    <p className='report-sessions-count'>
                       <strong>Sessions Count:</strong>{' '}
                       {rep.sessions?.length || 0}
                     </p>
 
-                    <div style={{ marginTop: '10px' }}>
-                      <strong>Session Details:</strong>
-                      <ul style={{ margin: '5px 0', paddingLeft: '20px' }}>
+                    <div>
+                      <strong className='report-details-label'>
+                        Session Details:
+                      </strong>
+                      <ul className='report-sessions-ul'>
                         {rep.sessions?.map((s, idx) => (
-                          <li key={idx} style={{ fontSize: '14px' }}>
+                          <li key={idx}>
                             <strong>{s.technology}</strong> - {s.sessionName} (
                             {s.students?.length || 0} students evaluated)
                           </li>
@@ -580,46 +457,18 @@ function AdminPanel() {
 
           {/* نافذة الإحصائيات الشاملة للمهندس عند طلبها */}
           {selectedInstructorStats && (
-            <section
-              style={{
-                marginTop: '20px',
-                border: '1px solid #8e44ad',
-                padding: '20px',
-                borderRadius: '8px',
-                background: '#fcf8ff',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <h3 style={{ color: '#8e44ad', margin: 0 }}>
-                  📈 Overall Instructor Stats
-                </h3>
+            <section className='card instructor-stats-card'>
+              <div className='instructor-stats-head'>
+                <h3>📈 Overall Instructor Stats</h3>
                 <button
                   onClick={() => setSelectedInstructorStats(null)}
-                  style={{
-                    border: 'none',
-                    background: 'transparent',
-                    cursor: 'pointer',
-                    fontSize: '16px',
-                  }}
+                  className='stats-close-btn'
                 >
                   ✕
                 </button>
               </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  gap: '20px',
-                  margin: '15px 0',
-                  fontSize: '15px',
-                }}
-              >
+              <div className='instructor-stats-totals'>
                 <div>
                   📁 Total Reports:{' '}
                   <strong>{selectedInstructorStats.totalReports}</strong>
@@ -634,10 +483,8 @@ function AdminPanel() {
                 </div>
               </div>
 
-              <h4 style={{ marginBottom: '8px' }}>
-                Average Student Ratings Across All Sessions:
-              </h4>
-              <ul style={{ paddingLeft: '20px', margin: 0 }}>
+              <h4>Average Student Ratings Across All Sessions:</h4>
+              <ul className='instructor-averages-ul'>
                 <li>
                   🛠️ Technical:{' '}
                   <strong>
