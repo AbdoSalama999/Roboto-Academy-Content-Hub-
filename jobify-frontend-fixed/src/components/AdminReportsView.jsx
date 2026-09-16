@@ -1,54 +1,51 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const AdminReportsView = () => {
   const [reports, setReports] = useState([])
   const [loading, setLoading] = useState(false)
   const [selectedDate, setSelectedDate] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  // 🟢 جلب الـ API Base URL من ملف الـ .env (مع تحديد localhost كبديل للتطوير المحلي)
   const API_BASE_URL =
     import.meta.env.VITE_API_URL || 'http://localhost:5555/api'
 
-  // 🔄 جلب التقارير من السيرفر
-  const fetchReports = useCallback(
-    async (date = '') => {
-      setLoading(true)
-      try {
-        const token = localStorage.getItem('token')
-        const url = date
-          ? `${API_BASE_URL}/daily-reports?date=${date}`
-          : `${API_BASE_URL}/daily-reports`
+  const fetchReports = async (date = '') => {
+    setLoading(true)
+    setErrorMessage('')
+    try {
+      const token = localStorage.getItem('token')
+      const url = date
+        ? `${API_BASE_URL}/daily-reports?date=${date}`
+        : `${API_BASE_URL}/daily-reports`
 
-        const response = await axios.get(url, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+      const response = await axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
 
-        if (response.data.success) {
-          setReports(response.data.data)
-        }
-      } catch (error) {
-        console.error('Error loading reports:', error)
-        alert('🚨 حدث خطأ أثناء تحميل التقارير')
-      } finally {
-        setLoading(false)
+      if (response.data.success) {
+        setReports(response.data.data)
       }
-    },
-    [API_BASE_URL],
-  )
+    } catch (error) {
+      console.error('Error loading reports:', error)
+      const msg =
+        error.response?.data?.message || '🚨 حدث خطأ أثناء تحميل التقارير'
+      setErrorMessage(msg)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     fetchReports()
-  }, [fetchReports])
+  }, [])
 
-  // 📅 التعامل مع فلتر التاريخ
   const handleDateChange = (e) => {
     const dateValue = e.target.value
     setSelectedDate(dateValue)
     fetchReports(dateValue)
   }
 
-  // 🧹 إزالة الفلتر
   const handleClearFilter = () => {
     setSelectedDate('')
     fetchReports('')
@@ -77,7 +74,6 @@ const AdminReportsView = () => {
         </span>
       </div>
 
-      {/* 🔍 بار الفلترة */}
       <div
         style={{
           display: 'flex',
@@ -123,12 +119,27 @@ const AdminReportsView = () => {
         )}
       </div>
 
-      {/* 📄 عرض التقارير */}
+      {errorMessage && (
+        <div
+          style={{
+            backgroundColor: '#fef2f2',
+            color: '#991b1b',
+            padding: '1rem',
+            borderRadius: '8px',
+            marginBottom: '1.5rem',
+            border: '1px solid #fecaca',
+            fontWeight: 'bold',
+          }}
+        >
+          {errorMessage}
+        </div>
+      )}
+
       {loading ? (
         <div style={{ textAlign: 'center', padding: '2rem', color: '#64748b' }}>
           ⏳ Loading reports...
         </div>
-      ) : reports.length === 0 ? (
+      ) : reports.length === 0 && !errorMessage ? (
         <div
           style={{
             textAlign: 'center',
@@ -157,7 +168,6 @@ const AdminReportsView = () => {
                 boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
               }}
             >
-              {/* هيدر التقرير */}
               <div
                 style={{
                   display: 'flex',
@@ -192,11 +202,13 @@ const AdminReportsView = () => {
                     height: 'fit-content',
                   }}
                 >
-                  📅 {report.date}
+                  📅{' '}
+                  {new Date(
+                    report.date || report.createdAt,
+                  ).toLocaleDateString()}
                 </div>
               </div>
 
-              {/* قسم الجلسات والطلاب */}
               <h4 style={{ margin: '1rem 0 0.5rem 0', color: '#334155' }}>
                 📌 Sessions Details ({report.sessions?.length || 0})
               </h4>
@@ -232,7 +244,6 @@ const AdminReportsView = () => {
                     </span>
                   </div>
 
-                  {/* جدول الطلاب وتقييماتهم */}
                   {session.students && session.students.length > 0 && (
                     <div style={{ overflowX: 'auto', marginTop: '8px' }}>
                       <table
@@ -285,7 +296,6 @@ const AdminReportsView = () => {
                 </div>
               ))}
 
-              {/* قسم المهام اليومية */}
               {report.tasks && (
                 <div
                   style={{
