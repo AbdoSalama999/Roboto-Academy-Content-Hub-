@@ -1,0 +1,277 @@
+.admin-reports-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.admin-reports-head h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.total-reports-pill {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.total-reports-pill strong {
+  color: var(--text-primary);
+}
+
+.date-filter-bar {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  flex-wrap: wrap;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-field label {
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 12.5px;
+}
+
+.name-filter-input {
+  width: 220px;
+}
+
+.date-filter-input {
+  width: auto;
+}
+
+.reports-status {
+  text-align: center;
+  padding: 40px 0;
+  color: var(--text-secondary);
+}
+
+.reports-empty {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--text-secondary);
+}
+
+.reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.report-card {
+  padding: 24px;
+}
+
+.report-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.report-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.edit-btn,
+.delete-btn,
+.save-btn,
+.cancel-btn {
+  padding: 6px 14px;
+  font-size: 12.5px;
+}
+
+.edit-instructor-input {
+  font-size: 16px;
+  font-weight: 700;
+  padding: 6px 10px;
+  margin-bottom: 4px;
+}
+
+/* ---- Edit form ---- */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-session-block {
+  background: var(--bg-surface-raised);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-session-head {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.edit-session-head .input {
+  flex: 1 1 160px;
+}
+
+.edit-student-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.edit-student-name {
+  flex: 1 1 150px;
+}
+
+.edit-rating-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  flex: 1 1 200px;
+}
+
+.edit-rating-input {
+  width: 100%;
+  padding: 8px 4px;
+  text-align: center;
+}
+
+.add-student-btn,
+.add-session-btn {
+  align-self: flex-start;
+  padding: 7px 16px;
+  font-size: 12.5px;
+}
+
+.report-card-head h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.report-day {
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.report-date-badge {
+  height: fit-content;
+}
+
+.report-sessions-heading {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.report-session-block {
+  background: var(--bg-surface-raised);
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+
+.report-session-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.report-session-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: 8px;
+  font-weight: 400;
+}
+
+.students-table-wrapper {
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: left;
+}
+
+.students-table thead tr {
+  background: var(--bg-surface-hover);
+  color: var(--text-secondary);
+}
+
+.students-table th,
+.students-table td {
+  padding: 8px 10px;
+}
+
+.students-table tbody tr {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.report-tasks-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-subtle);
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+
+.report-tasks-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  .date-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .name-filter-input,
+  .date-filter-input {
+    width: 100%;
+  }
+  .report-card-head {
+    flex-direction: column;
+  }
+  .report-card-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .edit-rating-grid {
+    grid-template-columns: repeat(4, 1fr);
+    flex: 1 1 100%;
+  }
+  .edit-student-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .edit-student-name,
+  .edit-rating-grid {
+    flex: 0 0 auto;
+  }
+}
